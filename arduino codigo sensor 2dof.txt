@@ -1,0 +1,80 @@
+
+const int green = A2; // pino onde o LDR está conectado
+const int red = A3;
+const int yellow = A4;
+const int blue = A5;
+int leituraRed = 0;
+int leituraGreen = 0;
+int leituraYellow = 0;
+int leituraBlue = 0;// variável para armazenar o valor lido pelo ADC
+float tensaoRed = 0.0;
+float tensaoGreen = 0.0;
+float tensaoBlue = 0.0;
+float tensaoYellow = 0.0;// variável para armazenar a tensão
+int angulo1;
+int angulo2;
+int angulo3;
+int angulo4;//variável para armazenar o ângulo
+
+
+
+void setup() {
+  // Inicia e configura a Serial
+  Serial.begin(9600); // 9600bps
+
+  // configura o pino com LDR como entrada
+  pinMode(green, INPUT); // pino A2
+    pinMode(red, INPUT); // pino A3
+      pinMode(yellow, INPUT); // pino A4
+        pinMode(blue, INPUT); // pino A5
+  
+}
+void loop() {
+  // le o valor de tensão no pino do LDR
+  leituraGreen = analogRead(green);
+  leituraRed = analogRead(red);
+  leituraYellow = analogRead(yellow);
+  leituraBlue = analogRead(blue);
+  angulo1 = map(leituraGreen,20,600,0,90);
+  angulo2 = map(leituraRed,3,540,0,90);
+  angulo3 = map(leituraYellow,460,620,0,90);
+  angulo4 = map(leituraBlue,80,485,0,90);// Ajusta a posição do servomotor de acordo com  a leitura da luz no LDR
+  
+    
+
+      // converte e imprime o valor em tensão elétrica
+     // tensao = leitura * 5.0 / 1024.0;
+    //  Serial.print("Tensão: ");
+     // Serial.print(tensao);
+     // Serial.print("V");
+     // Serial.print("\t"); // tabulacao
+  
+      // informa a posição do braço do servomotor no plano xy
+      Serial.print("Ângulo green: "); 
+      Serial.print(angulo1);
+      //Serial.print(leituraGreen);
+      Serial.print(" ");
+      //Serial.print("\t");
+
+      Serial.print("Ângulo red: "); 
+      Serial.print(angulo2);
+      //Serial.print(leituraRed);
+      Serial.print(" ");
+      //Serial.print("\t");
+
+      Serial.print("Ângulo yellow: "); 
+      Serial.print(angulo3);
+      // Serial.print(leituraYellow);
+      Serial.print(" ");
+      //Serial.print("\t");
+
+      Serial.print("Ângulo blue: "); 
+      Serial.println(angulo4);
+      //Serial.println(leituraBlue);
+     // Serial.print(" ");
+      //Serial.print("\t");
+
+      //Serial.println(); // nova linha
+  
+      delay(100);
+}
